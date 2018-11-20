@@ -75,27 +75,42 @@ create table usuarios
     
     create or replace procedure muestraClientes
     as
-    muestraCursor sys_refcursor;
     begin
-    open muestraCursor for
-   select * from usuarios;
+    
+    for vRegistro in (select id_usuario, nombre_usuario, 
+    apellidos_usuario, correo_usuario, contrasena  from usuarios)
+   loop
+   dbms_output.put_line(vRegistro.id_usuario);
+      dbms_output.put_line(vRegistro.nombre_usuario);
+         dbms_output.put_line(vRegistro.apellidos_usuario);
+            dbms_output.put_line(vRegistro.correo_usuario);
+               dbms_output.put_line(vRegistro.contrasena);
+            
+   end loop;
    
-   dbms_sql.return_result(muestraCursor);
     end;
     
+    select * from usuarios;
     
     execute muestraClientes;
     
     
       create or replace procedure muestraClienteEspecifico (idUsuario in number)
     as
-    muestraCursorDos sys_refcursor;
     begin
-    open muestraCursorDos for
-   select * from usuarios
-   where id_usuario=idUsuario;
    
-   dbms_sql.return_result(muestraCursorDos);
+     for vRegistro in (select id_usuario, nombre_usuario, 
+    apellidos_usuario, correo_usuario, contrasena  from usuarios
+    where id_usuario=idUsuario)
+   loop
+   dbms_output.put_line(vRegistro.id_usuario);
+      dbms_output.put_line(vRegistro.nombre_usuario);
+         dbms_output.put_line(vRegistro.apellidos_usuario);
+            dbms_output.put_line(vRegistro.correo_usuario);
+               dbms_output.put_line(vRegistro.contrasena);
+            
+   end loop;
+   
     end;
     
     
@@ -139,6 +154,117 @@ where id_rol=idRol;
 end;
 
 execute borrarRol (100);
+
+select * from rol;
+
+
+create or replace procedure verRol
+as
+begin
+
+    for rolRegistro in (select id_rol, nombre_rol, descripcion_rol from rol)
+   loop
+   dbms_output.put_line(rolRegistro.id_rol);
+      dbms_output.put_line(rolRegistro.nombre_rol);
+              dbms_output.put_line(rolRegistro.descripcion_rol);
+
+            
+   end loop;
+
+end;
+
+execute verRol;
+
+create or replace procedure verRolEspec (idRol in number)
+as
+begin
+
+    for rolRegistro in (select id_rol, nombre_rol, descripcion_rol from rol
+    where id_rol=idRol)
+   loop
+   dbms_output.put_line(rolRegistro.id_rol);
+      dbms_output.put_line(rolRegistro.nombre_rol);
+              dbms_output.put_line(rolRegistro.descripcion_rol);
+
+            
+   end loop;
+
+end;
+
+execute verRolEspec;
+
+
+
+create or replace procedure asignaRol (idUsuario in number, idRol in number)
+as
+begin
+
+insert into rol_usuario values (idUsuario, idRol);
+
+end;
+
+execute asignaRol();
+
+create or replace procedure borraAsignaRol (idUsuario in number)
+as
+begin
+
+delete rol_usuario
+where id_usuario=idUsuario;
+
+end;
+
+create or replace procedure modificaAsignaRol (idUsuario in number, idRol in number)
+as
+begin
+
+update rol_usuario
+set id_rol=nvl(idRol, id_rol)
+where id_usuario=idUsuario;
+
+end;
+
+select id_usuario, id_rol from rol_usuario;
+
+create or replace procedure verRolesAsig
+as
+begin
+
+    for rolRegistro in (select id_usuario, id_rol from rol_usuario)
+   loop
+   dbms_output.put_line(rolRegistro.id_usuario);
+      dbms_output.put_line(rolRegistro.id_rol);
+            
+   end loop;
+
+end;
+
+execute verRolesAsig;
+
+create or replace procedure verRolEspecAsig (idUsuario in number)
+as
+begin
+
+    for rolRegistro in (select id_usuario, id_rol from rol_usuario
+    where id_usuario=idUsuario)
+   loop
+   dbms_output.put_line(rolRegistro.id_usuario);
+      dbms_output.put_line(rolRegistro.id_rol);
+            
+   end loop;
+
+end;
+
+execute verRolEspecAsig;
+
+
+
+
+
+
+
+
+
     
     
     
