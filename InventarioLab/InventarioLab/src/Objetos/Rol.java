@@ -11,26 +11,39 @@ package Objetos;
  */
 public class Rol {
     
-    private static String nomRol;
-    private static String descRol;
+    private String nomRol;
+    private String descRol;
+    private String idRol;
+    
+    
 
-    public static String getNomRol() {
+   
+
+    public Rol() {
+    }
+
+    public String getNomRol() {
         return nomRol;
     }
 
-    public static void setNomRol(String aNomRol) {
-        nomRol = aNomRol;
+    public void setNomRol(String nomRol) {
+        this.nomRol = nomRol;
     }
 
-    public static String getDescRol() {
+    public String getDescRol() {
         return descRol;
     }
 
-    public static void setDescRol(String aDescRol) {
-        descRol = aDescRol;
+    public void setDescRol(String descRol) {
+        this.descRol = descRol;
     }
 
-    public Rol() {
+    public String getIdRol() {
+        return idRol;
+    }
+
+    public void setIdRol(String idRol) {
+        this.idRol = idRol;
     }
     
     

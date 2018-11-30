@@ -100,7 +100,10 @@
             
             end;
             
-            execute borraCliente (2);
+            execute borraCliente (25);
+            
+            select * from usuarios;
+            select * from rol_usuario;
             
             create or replace trigger trBorraUsuario
             
@@ -132,7 +135,26 @@
                             SELECT * FROM usuarios
                             where correo_usuario=correo;
                     END;
-                   
+
+
+                   CREATE OR REPLACE PROCEDURE muestraTodoUsuariosEspecNom(nom in varchar2          
+                                                                     ,todoUsuarioEspecNom OUT SYS_REFCURSOR)
+                    AS             
+                    BEGIN
+                        OPEN todoUsuarioEspecNom FOR
+                            SELECT * FROM usuarios
+                            where lower(nombre_usuario)=lower(nom);
+                    END;
+
+
+CREATE OR REPLACE PROCEDURE muestraTodoUsuariosEspecApel(apellido in varchar2          
+                                                                     ,todoUsuarioEspecApel OUT SYS_REFCURSOR)
+                    AS             
+                    BEGIN
+                        OPEN todoUsuarioEspecApel FOR
+                            SELECT * FROM usuarios
+                            where lower(apellidos_usuario)=lower(apellido);
+                    END;
             
             
            
@@ -358,7 +380,7 @@
             update proveedores
             set nombre_proveedor=nvl(nombreProveedor, nombre_proveedor),
             telefono_proveedor=nvl(telefonoProveedor, telefono_proveedor),
-            correo_proveedor=nvl(correoProveedor, correo_provedor)
+            correo_proveedor=nvl(correoProveedor, correo_proveedor)
             where id_proveedor=idProveedor;
             
             end;
@@ -375,6 +397,10 @@
             
             end;
             
+            execute borraProveedores (6001);
+            
+            select * from proveedores;
+            
             
             CREATE OR REPLACE PROCEDURE muestraTodoProv(todoProv OUT SYS_REFCURSOR)
                 AS             
@@ -384,12 +410,12 @@
                 END;
                 
                 
-            CREATE OR REPLACE PROCEDURE muestraTodoProvEspec(idProv in int, todoProvEspec OUT SYS_REFCURSOR)
+            CREATE OR REPLACE PROCEDURE muestraTodoProvEspec(nomProv in varchar2, todoProvEspec OUT SYS_REFCURSOR)
                 AS             
                 BEGIN
                     OPEN todoProvEspec FOR
                         SELECT * FROM proveedores
-                        where id_proveedor=idProv;
+                        where nombre_proveedor=nomProv;
                 END;
                 
                 

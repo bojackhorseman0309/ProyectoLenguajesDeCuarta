@@ -11,36 +11,49 @@ package Objetos;
  */
 public class Proveedor {
     
-    private static String nomProv;
-    private static String telProv;
-    private static String correoProv;
-
-    public static String getNomProv() {
-        return nomProv;
-    }
-
-    public static void setNomProv(String aNomProv) {
-        nomProv = aNomProv;
-    }
-
-    public static String getTelProv() {
-        return telProv;
-    }
-
-    public static void setTelProv(String aTelProv) {
-        telProv = aTelProv;
-    }
-
-    public static String getCorreoProv() {
-        return correoProv;
-    }
-
-    public static void setCorreoProv(String aCorreoProv) {
-        correoProv = aCorreoProv;
-    }
+    private String nomProv;
+    private String telProv;
+    private String correoProv;
+    private String idProv;
+    
+    
 
     public Proveedor() {
     }
+
+    public String getNomProv() {
+        return nomProv;
+    }
+
+    public void setNomProv(String nomProv) {
+        this.nomProv = nomProv;
+    }
+
+    public String getTelProv() {
+        return telProv;
+    }
+
+    public void setTelProv(String telProv) {
+        this.telProv = telProv;
+    }
+
+    public String getCorreoProv() {
+        return correoProv;
+    }
+
+    public void setCorreoProv(String correoProv) {
+        this.correoProv = correoProv;
+    }
+
+    public String getIdProv() {
+        return idProv;
+    }
+
+    public void setIdProv(String idProv) {
+        this.idProv = idProv;
+    }
+    
+    
     
     
     

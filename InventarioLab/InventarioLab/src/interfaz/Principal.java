@@ -14,6 +14,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 
 
@@ -34,6 +35,10 @@ public class Principal extends javax.swing.JFrame implements WindowListener {
     DetalleRebajo detalleRebajo=new DetalleRebajo(this, true);
     GestionMotivo gestionMotivo=new GestionMotivo(this,true);
     ManejoUsuario manejo=new ManejoUsuario();
+    ManejoProveedor manProv=new ManejoProveedor();
+    String nomProv;
+    String telProv;
+    String correoProv;
  
 
     /**
@@ -715,9 +720,19 @@ public class Principal extends javax.swing.JFrame implements WindowListener {
 
         mostrarTodoProveedorBtn.setText("Mostrar todo");
         mostrarTodoProveedorBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mostrarTodoProveedorBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mostrarTodoProveedorBtnActionPerformed(evt);
+            }
+        });
 
         buscarProveedorBtn.setText("Buscar");
         buscarProveedorBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        buscarProveedorBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarProveedorBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -1921,6 +1936,11 @@ public class Principal extends javax.swing.JFrame implements WindowListener {
 
         buscarUsuarioBtn.setText("Buscar");
         buscarUsuarioBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        buscarUsuarioBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarUsuarioBtnActionPerformed(evt);
+            }
+        });
 
         mostarTodoUsuarioBtn.setText("Motrar Todo");
         mostarTodoUsuarioBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -2796,11 +2816,11 @@ public class Principal extends javax.swing.JFrame implements WindowListener {
     }//GEN-LAST:event_menuProveedoresActionPerformed
 
     private void editarProveedorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarProveedorBtnActionPerformed
-        // TODO add your handling code here:
+        manProv.editaProvTabla(panelAccionesProveedor);
     }//GEN-LAST:event_editarProveedorBtnActionPerformed
 
     private void borrarProveedorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarProveedorBtnActionPerformed
-        // TODO add your handling code here:
+        manProv.borraProvTabla(panelAccionesProveedor);
     }//GEN-LAST:event_borrarProveedorBtnActionPerformed
 
     private void refrescarProveedorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refrescarProveedorBtnActionPerformed
@@ -2892,11 +2912,11 @@ public class Principal extends javax.swing.JFrame implements WindowListener {
     }//GEN-LAST:event_gestionRolesBtnActionPerformed
 
     private void borrarUsuarioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarUsuarioBtnActionPerformed
-        // TODO add your handling code here:
+        manejo.borraUsuarioTabla(tablaUsuario);
     }//GEN-LAST:event_borrarUsuarioBtnActionPerformed
 
     private void editarUsuarioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarUsuarioBtnActionPerformed
-        // TODO add your handling code here:
+        manejo.editaUsuarioTabla(tablaUsuario);
     }//GEN-LAST:event_editarUsuarioBtnActionPerformed
 
     private void buscaNombreUsuarioTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscaNombreUsuarioTxtActionPerformed
@@ -3021,10 +3041,10 @@ public class Principal extends javax.swing.JFrame implements WindowListener {
     }//GEN-LAST:event_mostarTodoUsuarioBtnActionPerformed
 
     private void crearNuevoProveedorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearNuevoProveedorBtnActionPerformed
-        Proveedor.setCorreoProv(correoProveedorTxt.getText());
-        Proveedor.setNomProv(nombreProveedorTxt.getText());
-        Proveedor.setTelProv(telefonoProveedorTxt.getText());
-        ManejoProveedor.crearProveedor();
+        correoProv=correoProveedorTxt.getText();
+        nomProv=nombreProveedorTxt.getText();
+        telProv=telefonoProveedorTxt.getText();
+        manProv.crearProveedor(nomProv, telProv, correoProv);
     }//GEN-LAST:event_crearNuevoProveedorBtnActionPerformed
 
     private void limpiarNuevoProveedorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarNuevoProveedorBtnActionPerformed
@@ -3032,6 +3052,41 @@ public class Principal extends javax.swing.JFrame implements WindowListener {
        nombreProveedorTxt.setText(" ");
        telefonoProveedorTxt.setText(" ");
     }//GEN-LAST:event_limpiarNuevoProveedorBtnActionPerformed
+
+    private void buscarUsuarioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarUsuarioBtnActionPerformed
+        if (buscaNombreUsuarioRadioBtn.isSelected()) {
+            
+            String nom=buscaNombreUsuarioTxt.getText();
+            
+            manejo.obtenerUsuarioEspecNom(tablaUsuario, nom);
+            
+        } else if (buscaCorreoUsuarioRadioBtn.isSelected()){
+            
+            String correo=buscaCorreoUsuarioTxt.getText();
+            
+           manejo.obtenerUsuarioEspec(tablaUsuario, correo);
+            
+        } else if (buscaApellidoUsuarioRadioBtn.isSelected()){
+            
+            String apellido=buscaApellidoUsuarioTxt.getText();
+            
+            manejo.obtenerUsuarioEspecApel(tablaUsuario, apellido);
+            
+        } else{
+            
+            JOptionPane.showMessageDialog(null, "Error! No se pudo buscar");
+            
+        }
+    }//GEN-LAST:event_buscarUsuarioBtnActionPerformed
+
+    private void mostrarTodoProveedorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarTodoProveedorBtnActionPerformed
+        manProv.obtenerProv(panelAccionesProveedor);
+    }//GEN-LAST:event_mostrarTodoProveedorBtnActionPerformed
+
+    private void buscarProveedorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarProveedorBtnActionPerformed
+        String nom=buscarProveedorTxt.getText();
+        manProv.obtenerProvEspec(panelAccionesProveedor, nom);
+    }//GEN-LAST:event_buscarProveedorBtnActionPerformed
 
     /**
      * @param args the command line arguments

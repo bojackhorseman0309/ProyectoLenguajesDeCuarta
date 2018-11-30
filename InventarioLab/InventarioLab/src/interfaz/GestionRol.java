@@ -15,6 +15,10 @@ import javax.swing.table.DefaultTableModel;
  * @author mar_8
  */
 public class GestionRol extends javax.swing.JDialog {
+    
+    String nomRol;
+    String descrip;
+    ManejoRol manejo=new ManejoRol();
 
     /**
      * Creates new form GestionArea
@@ -68,6 +72,11 @@ public class GestionRol extends javax.swing.JDialog {
 
         editarRolBtn.setText("Editar");
         editarRolBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        editarRolBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarRolBtnActionPerformed(evt);
+            }
+        });
 
         refrescarTablaRolBtn.setText("Refrescar");
         refrescarTablaRolBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -200,9 +209,19 @@ public class GestionRol extends javax.swing.JDialog {
 
         mostrarTodoRolBtn.setText("Mostrar todo");
         mostrarTodoRolBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        mostrarTodoRolBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mostrarTodoRolBtnActionPerformed(evt);
+            }
+        });
 
         buscaRolBtn.setText("Buscar");
         buscaRolBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        buscaRolBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscaRolBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -293,9 +312,9 @@ public class GestionRol extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void crearRolBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearRolBtnActionPerformed
-        Rol.setNomRol(nombreRolTxt.getText());
-        Rol.setDescRol(descripcionRolTxt.getText());
-        ManejoRol.crearRol();
+        nomRol=nombreRolTxt.getText();
+        descrip=descripcionRolTxt.getText();
+        manejo.crearRol(nomRol, descrip);
         limpiarNuevoRolBtnActionPerformed(evt);
     }//GEN-LAST:event_crearRolBtnActionPerformed
 
@@ -305,8 +324,21 @@ public class GestionRol extends javax.swing.JDialog {
     }//GEN-LAST:event_limpiarNuevoRolBtnActionPerformed
 
     private void borrarRolBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarRolBtnActionPerformed
-        
+        manejo.borraRolTabla(tablaRoles);
     }//GEN-LAST:event_borrarRolBtnActionPerformed
+
+    private void mostrarTodoRolBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarTodoRolBtnActionPerformed
+        manejo.obtenerRoles(tablaRoles);
+    }//GEN-LAST:event_mostrarTodoRolBtnActionPerformed
+
+    private void buscaRolBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscaRolBtnActionPerformed
+       String nom= buscarRolTxt.getText();
+       manejo.obtenerRolEspec(tablaRoles, nom);
+    }//GEN-LAST:event_buscaRolBtnActionPerformed
+
+    private void editarRolBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarRolBtnActionPerformed
+        manejo.editaRolTabla(tablaRoles);
+    }//GEN-LAST:event_editarRolBtnActionPerformed
 
     /**
      * @param args the command line arguments
