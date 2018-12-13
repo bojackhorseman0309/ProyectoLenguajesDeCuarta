@@ -6,8 +6,6 @@
 package interaccionBD;
 
 import Objetos.Proveedor;
-import Objetos.Rol;
-import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import conexion.Conexion;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -50,6 +48,40 @@ public class ManejoProveedor {
                 //e.printStackTrace();
             }
             JOptionPane.showMessageDialog(null, "Se ha creado el proveedor exitosamente");
+        } 
+    }
+     
+     
+      /*    create or replace procedure spVerifNomProv (nomProv in varchar2, msj out varchar2) */
+     
+       public void verificaProveedor(String nomProv, String telProv, String correo){
+        con = Conexion.getConexion();
+        stmt=null; String verif=" ";
+
+        String sql ="{call spVerifNomProv(?,?)}";
+        try {
+            stmt = con.prepareCall(sql);
+            stmt.setString(1, nomProv);
+            stmt.registerOutParameter(2, java.sql.Types.VARCHAR);
+            stmt.executeUpdate();
+            verif=stmt.getString(2);
+            if (verif.equals("false")) {
+                crearProveedor(nomProv, telProv, correo);
+            } else{
+                    JOptionPane.showMessageDialog(null, "Ya hay un Proveedor con estos datos");
+            }
+            
+            
+            
+        } catch (Exception e) {
+            //e.printStackTrace();
+        } finally {
+            try {
+                stmt.close();
+                con.close();
+            } catch (SQLException e) {
+                //e.printStackTrace();
+            }
         } 
     }
 
@@ -186,6 +218,38 @@ public class ManejoProveedor {
         }
     }
     
+    
+     public void verificaProveedorEditado(int id, String nombre, String tel, String correo){
+        con = Conexion.getConexion();
+        stmt=null; String verif=" ";
+
+        String sql ="{call spVerifNomProv(?,?)}";
+        try {
+            stmt = con.prepareCall(sql);
+            stmt.setString(1, nombre);
+            stmt.registerOutParameter(2, java.sql.Types.VARCHAR);
+            stmt.executeUpdate();
+            verif=stmt.getString(2);
+            if (verif.equals("false")) {
+                editarProv(id, nombre, tel, correo);
+            } else{
+                    JOptionPane.showMessageDialog(null, "Ya hay un Proveedor con estos datos");
+            }
+            
+            
+            
+        } catch (Exception e) {
+            //e.printStackTrace();
+        } finally {
+            try {
+                stmt.close();
+                con.close();
+            } catch (SQLException e) {
+                //e.printStackTrace();
+            }
+        } 
+    }
+    
      public void editaProvTabla(JTable tabla) {
         DefaultTableModel model = (DefaultTableModel) tabla.getModel();
         try {
@@ -193,7 +257,7 @@ public class ManejoProveedor {
             String nombre = model.getValueAt(tabla.getSelectedRow(), 1).toString();
             String tel = model.getValueAt(tabla.getSelectedRow(), 2).toString();
             String correo = model.getValueAt(tabla.getSelectedRow(), 3).toString();
-            editarProv(Integer.parseInt(id), nombre, tel, correo);
+            verificaProveedorEditado(Integer.parseInt(id), nombre, tel, correo);
         } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una fila para editar", "Error", 0);
         }

@@ -51,6 +51,44 @@ public class ManejoRol {
         } 
     }
      
+     
+     
+      /*   create or replace procedure spVerifNomRol (nomRol in varchar2, msj out varchar2) */
+     
+       public void verificaRol(String nomRol, String descrip){
+        con = Conexion.getConexion();
+        stmt=null; String verif=" ";
+
+        String sql ="{call spVerifNomRol(?,?)}";
+        try {
+            stmt = con.prepareCall(sql);
+            stmt.setString(1, nomRol);
+            stmt.registerOutParameter(2, java.sql.Types.VARCHAR);
+            stmt.executeUpdate();
+            verif=stmt.getString(2);
+            if (verif.equals("false")) {
+                crearRol(nomRol, descrip);
+            } else{
+                    JOptionPane.showMessageDialog(null, "Ya hay un rol con estos datos");
+            }
+            
+            
+            
+        } catch (Exception e) {
+            //e.printStackTrace();
+        } finally {
+            try {
+                stmt.close();
+                con.close();
+            } catch (SQLException e) {
+                //e.printStackTrace();
+            }
+        } 
+    }
+       
+   
+     
+     
      /*  CREATE OR REPLACE PROCEDURE muestraTodoRol(          
                     todoRol OUT SYS_REFCURSOR)AS     */
      
@@ -179,13 +217,45 @@ public class ManejoRol {
         }
     }
     
+    
+      public void verificaRolEditado(int id, String nombre, String desc){
+        con = Conexion.getConexion();
+        stmt=null; String verif=" ";
+
+        String sql ="{call spVerifNomRol(?,?)}";
+        try {
+            stmt = con.prepareCall(sql);
+            stmt.setString(1, nombre);
+            stmt.registerOutParameter(2, java.sql.Types.VARCHAR);
+            stmt.executeUpdate();
+            verif=stmt.getString(2);
+            if (verif.equals("false")) {
+                editarRol(id, nombre, desc);
+            } else{
+                    JOptionPane.showMessageDialog(null, "Ya hay un rol con estos datos");
+            }
+            
+            
+            
+        } catch (Exception e) {
+            //e.printStackTrace();
+        } finally {
+            try {
+                stmt.close();
+                con.close();
+            } catch (SQLException e) {
+                //e.printStackTrace();
+            }
+        } 
+    }
+    
      public void editaRolTabla(JTable tabla) {
         DefaultTableModel model = (DefaultTableModel) tabla.getModel();
         try {
             String id = (String) model.getValueAt(tabla.getSelectedRow(), 0);
             String nombre = model.getValueAt(tabla.getSelectedRow(), 1).toString();
             String desc = model.getValueAt(tabla.getSelectedRow(), 2).toString();
-            editarRol(Integer.parseInt(id), nombre, desc);
+            verificaRolEditado(Integer.parseInt(id), nombre, desc);
         } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una fila para editar", "Error", 0);
         }

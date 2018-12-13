@@ -7,7 +7,11 @@ package interfaz;
 
 import Objetos.Rol;
 import interaccionBD.ManejoRol;
+import java.awt.event.ActionEvent;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -314,7 +318,7 @@ public class GestionRol extends javax.swing.JDialog {
     private void crearRolBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearRolBtnActionPerformed
         nomRol=nombreRolTxt.getText();
         descrip=descripcionRolTxt.getText();
-        manejo.crearRol(nomRol, descrip);
+        manejo.verificaRol(nomRol, descrip);
         limpiarNuevoRolBtnActionPerformed(evt);
     }//GEN-LAST:event_crearRolBtnActionPerformed
 
@@ -337,9 +341,19 @@ public class GestionRol extends javax.swing.JDialog {
     }//GEN-LAST:event_buscaRolBtnActionPerformed
 
     private void editarRolBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarRolBtnActionPerformed
+
+                
+
         manejo.editaRolTabla(tablaRoles);
     }//GEN-LAST:event_editarRolBtnActionPerformed
 
+    
+    
+ 
+  
+
+
+    
     /**
      * @param args the command line arguments
      */

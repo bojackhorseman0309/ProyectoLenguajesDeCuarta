@@ -55,6 +55,41 @@ public class ManejoUsuario {
             JOptionPane.showMessageDialog(null, "Se ha creado el usuario exitosamente");
         } 
     }
+     /*   create or replace procedure spVerifCorreo (correo in varchar2, msj out varchar2) */
+     
+       public void verificaUsuario(String nomUsuario, String apelUsuario, String correo, String contra){
+        con = Conexion.getConexion();
+        stmt=null; String verif=" ";
+
+        String sql ="{call spVerifCorreo(?,?)}";
+        try {
+            stmt = con.prepareCall(sql);
+            stmt.setString(1, correo);
+            stmt.registerOutParameter(2, java.sql.Types.VARCHAR);
+            stmt.executeUpdate();
+            verif=stmt.getString(2);
+            if (verif.equals("false")) {
+                setUsuario(nomUsuario, apelUsuario, correo, contra);
+            } else{
+                    JOptionPane.showMessageDialog(null, "Ya hay un usuario con estos datos");
+            }
+            
+            
+            
+        } catch (Exception e) {
+            //e.printStackTrace();
+        } finally {
+            try {
+                stmt.close();
+                con.close();
+            } catch (SQLException e) {
+                //e.printStackTrace();
+            }
+        } 
+    }
+     
+     
+     
      
      /*   create or replace procedure SpSacaId (correo in varchar2,idUsuario out int) */
      
@@ -354,6 +389,38 @@ public class ManejoUsuario {
         }
     }
     
+    
+        public void verificaUsuarioEditado(int id, String nombre, String apellido, String correo, String contra){
+        con = Conexion.getConexion();
+        stmt=null; String verif=" ";
+
+        String sql ="{call spVerifCorreo(?,?)}";
+        try {
+            stmt = con.prepareCall(sql);
+            stmt.setString(1, correo);
+            stmt.registerOutParameter(2, java.sql.Types.VARCHAR);
+            stmt.executeUpdate();
+            verif=stmt.getString(2);
+            if (verif.equals("false")) {
+                editarUsuario(id, nombre, apellido, correo, contra);
+            } else{
+                    JOptionPane.showMessageDialog(null, "Ya hay un usuario con estos datos");
+            }
+            
+            
+            
+        } catch (Exception e) {
+            //e.printStackTrace();
+        } finally {
+            try {
+                stmt.close();
+                con.close();
+            } catch (SQLException e) {
+                //e.printStackTrace();
+            }
+        } 
+    }
+    
      public void editaUsuarioTabla(JTable tabla) {
         DefaultTableModel model = (DefaultTableModel) tabla.getModel();
         try {
@@ -362,7 +429,7 @@ public class ManejoUsuario {
             String apellido = model.getValueAt(tabla.getSelectedRow(), 2).toString();
             String correo = model.getValueAt(tabla.getSelectedRow(), 3).toString();
             String contra = model.getValueAt(tabla.getSelectedRow(), 4).toString();
-            editarUsuario(Integer.parseInt(id), nombre, apellido, correo, contra);
+            verificaUsuarioEditado(Integer.parseInt(id), nombre, apellido, correo, contra);
         } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una fila para editar", "Error", 0);
         }

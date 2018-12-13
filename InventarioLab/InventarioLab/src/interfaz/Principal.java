@@ -58,6 +58,7 @@ public class Principal extends javax.swing.JFrame implements WindowListener {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroupUsuarios = new javax.swing.ButtonGroup();
         cardlayout = new javax.swing.JPanel();
         panelInicio = new javax.swing.JPanel();
         jLabel41 = new javax.swing.JLabel();
@@ -1923,9 +1924,11 @@ public class Principal extends javax.swing.JFrame implements WindowListener {
         jPanel19.setBorder(javax.swing.BorderFactory.createTitledBorder("Búsqueda"));
 
         buscaNombreUsuarioRadioBtn.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroupUsuarios.add(buscaNombreUsuarioRadioBtn);
         buscaNombreUsuarioRadioBtn.setText("Buscar por nombre");
 
         buscaApellidoUsuarioRadioBtn.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroupUsuarios.add(buscaApellidoUsuarioRadioBtn);
         buscaApellidoUsuarioRadioBtn.setText("Buscar por apellido");
 
         buscaNombreUsuarioTxt.addActionListener(new java.awt.event.ActionListener() {
@@ -1951,6 +1954,7 @@ public class Principal extends javax.swing.JFrame implements WindowListener {
         });
 
         buscaCorreoUsuarioRadioBtn.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroupUsuarios.add(buscaCorreoUsuarioRadioBtn);
         buscaCorreoUsuarioRadioBtn.setText("Buscar por correo");
         buscaCorreoUsuarioRadioBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -3044,7 +3048,8 @@ public class Principal extends javax.swing.JFrame implements WindowListener {
         correoProv=correoProveedorTxt.getText();
         nomProv=nombreProveedorTxt.getText();
         telProv=telefonoProveedorTxt.getText();
-        manProv.crearProveedor(nomProv, telProv, correoProv);
+        manProv.verificaProveedor(nomProv, telProv, correoProv);
+        limpiarNuevoProveedorBtnActionPerformed(evt);
     }//GEN-LAST:event_crearNuevoProveedorBtnActionPerformed
 
     private void limpiarNuevoProveedorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarNuevoProveedorBtnActionPerformed
@@ -3175,6 +3180,7 @@ public class Principal extends javax.swing.JFrame implements WindowListener {
     private javax.swing.JButton buscarProveedorBtn;
     private javax.swing.JTextField buscarProveedorTxt;
     private javax.swing.JButton buscarUsuarioBtn;
+    private javax.swing.ButtonGroup buttonGroupUsuarios;
     private javax.swing.JButton cambioUsuarioBtn;
     private javax.swing.JSpinner cantidadNuevaEntregaTxt;
     private javax.swing.JSpinner cantidadNuevoPedidoTxt;

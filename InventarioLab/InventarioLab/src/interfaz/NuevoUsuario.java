@@ -66,6 +66,11 @@ public class NuevoUsuario extends javax.swing.JDialog {
 
         limpiarUsuarioBtn.setText("Limpiar");
         limpiarUsuarioBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        limpiarUsuarioBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                limpiarUsuarioBtnActionPerformed(evt);
+            }
+        });
 
         crearUsuarioBtn.setText("Crear");
         crearUsuarioBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -197,7 +202,7 @@ public class NuevoUsuario extends javax.swing.JDialog {
       contrasena=contrsenaUsuarioTxt.getText();
       correo=correoUsuarioTxt.getText();
       nombre=nombreUsuarioTxt.getText();
-      manejo.setUsuario(nombre, apellido, correo, contrasena);
+      manejo.verificaUsuario(nombre, apellido, correo, contrasena);
       
         if (rolUsuarioComboBox.getSelectedItem().toString().equals("Administrador")) {
             manejo.sacaId(correoUsuarioTxt.getText(), 100);
@@ -217,6 +222,13 @@ public class NuevoUsuario extends javax.swing.JDialog {
     private void rolUsuarioComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rolUsuarioComboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rolUsuarioComboBoxActionPerformed
+
+    private void limpiarUsuarioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarUsuarioBtnActionPerformed
+        apellidoUsuarioTxt.setText(" ");
+        contrsenaUsuarioTxt.setText(" ");
+        correoUsuarioTxt.setText(" ");
+        nombreUsuarioTxt.setText(" ");
+    }//GEN-LAST:event_limpiarUsuarioBtnActionPerformed
 
     /**
      * @param args the command line arguments
