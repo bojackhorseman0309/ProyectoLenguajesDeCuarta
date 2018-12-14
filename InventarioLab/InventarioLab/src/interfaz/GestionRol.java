@@ -10,6 +10,7 @@ import interaccionBD.ManejoRol;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
@@ -45,7 +46,6 @@ public class GestionRol extends javax.swing.JDialog {
         jLabel21 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         editarRolBtn = new javax.swing.JButton();
-        refrescarTablaRolBtn = new javax.swing.JButton();
         borrarRolBtn = new javax.swing.JButton();
         panelr = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -82,9 +82,6 @@ public class GestionRol extends javax.swing.JDialog {
             }
         });
 
-        refrescarTablaRolBtn.setText("Refrescar");
-        refrescarTablaRolBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
         borrarRolBtn.setText("Borrar");
         borrarRolBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         borrarRolBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -100,11 +97,9 @@ public class GestionRol extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addComponent(editarRolBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 227, Short.MAX_VALUE)
                 .addComponent(borrarRolBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                .addComponent(refrescarTablaRolBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42))
+                .addGap(44, 44, 44))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,7 +107,6 @@ public class GestionRol extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editarRolBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
-                    .addComponent(refrescarTablaRolBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
                     .addComponent(borrarRolBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -318,8 +312,13 @@ public class GestionRol extends javax.swing.JDialog {
     private void crearRolBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearRolBtnActionPerformed
         nomRol=nombreRolTxt.getText();
         descrip=descripcionRolTxt.getText();
-        manejo.verificaRol(nomRol, descrip);
+        if (nomRol.isEmpty() || nomRol==null) {
+            JOptionPane.showMessageDialog(null, "Espacio nombre vacio");
+        } else{
+             manejo.verificaRol(nomRol, descrip);
         limpiarNuevoRolBtnActionPerformed(evt);
+        }
+       
     }//GEN-LAST:event_crearRolBtnActionPerformed
 
     private void limpiarNuevoRolBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarNuevoRolBtnActionPerformed
@@ -417,7 +416,6 @@ public class GestionRol extends javax.swing.JDialog {
     private javax.swing.JButton mostrarTodoRolBtn;
     private javax.swing.JTextField nombreRolTxt;
     private javax.swing.JPanel panelr;
-    private javax.swing.JButton refrescarTablaRolBtn;
     private javax.swing.JTable tablaRoles;
     // End of variables declaration//GEN-END:variables
 }

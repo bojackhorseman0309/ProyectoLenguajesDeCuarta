@@ -202,9 +202,11 @@ public class NuevoUsuario extends javax.swing.JDialog {
       contrasena=contrsenaUsuarioTxt.getText();
       correo=correoUsuarioTxt.getText();
       nombre=nombreUsuarioTxt.getText();
-      manejo.verificaUsuario(nombre, apellido, correo, contrasena);
-      
-        if (rolUsuarioComboBox.getSelectedItem().toString().equals("Administrador")) {
+        if (apellido.isEmpty() || apellido==null|| contrasena==null|| contrasena.isEmpty() || correo==null ||correo.isEmpty() || nombre==null|| nombre.isEmpty()) {
+               JOptionPane.showMessageDialog(null, "Ningun espacio puede quedar vacio");
+        }else{
+            manejo.verificaUsuario(nombre, apellido, correo, contrasena);
+            if (rolUsuarioComboBox.getSelectedItem().toString().equals("Administrador")) {
             manejo.sacaId(correoUsuarioTxt.getText(), 100);
             
         } else if(rolUsuarioComboBox.getSelectedItem().toString().equals("Usuario")){
@@ -212,11 +214,8 @@ public class NuevoUsuario extends javax.swing.JDialog {
         } else{
             JOptionPane.showMessageDialog(null, "Error");
         }
-        
-        
-   
-      
-      
+            
+        }
     }//GEN-LAST:event_crearUsuarioBtnActionPerformed
 
     private void rolUsuarioComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rolUsuarioComboBoxActionPerformed

@@ -180,13 +180,18 @@ public class ManejoRol {
         model.setRowCount(0);
         if (!nom.equalsIgnoreCase("")) {
             ArrayList<Rol> lista = buscarRolEspec(nom);
-            Object[] linea = new Object[3];
+            if (buscarRolEspec(nom)==null || buscarRolEspec(nom).isEmpty() || buscarRolEspec(nom).equals("")) {
+                
+            }else{
+                 Object[] linea = new Object[3];
             for (int i = 0; i < lista.size(); i++) {
                 linea[0] = lista.get(i).getIdRol();
                  linea[1] = lista.get(i).getNomRol();
                  linea[2] = lista.get(i).getDescRol();
                 model.addRow(linea);
             }
+            }
+           
         }else{
            JOptionPane.showMessageDialog(null, "Debe ingresar un nombre para buscar", "Error", 0); 
         }
@@ -255,7 +260,7 @@ public class ManejoRol {
             String id = (String) model.getValueAt(tabla.getSelectedRow(), 0);
             String nombre = model.getValueAt(tabla.getSelectedRow(), 1).toString();
             String desc = model.getValueAt(tabla.getSelectedRow(), 2).toString();
-            verificaRolEditado(Integer.parseInt(id), nombre, desc);
+            editarRol(Integer.parseInt(id), nombre, desc);
         } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una fila para editar", "Error", 0);
         }

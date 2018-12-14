@@ -205,11 +205,11 @@
                       errorEx EXCEPTION;
                         conteo int;
                     BEGIN
-                        select count(*) into conteo from usuarios where lower(correo_usuario) like lower(correo)||'%';
+                        select count(*) into conteo from usuarios where trim(lower(correo_usuario)) like trim(lower(correo))||'%';
                         if conteo>0 then
                         OPEN todoUsuarioEspec FOR
                             SELECT * FROM usuarios
-                            where lower(correo_usuario) like lower(correo)||'%';
+                            where trim(lower(correo_usuario)) like trim(lower(correo))||'%';
                             
                             else
                             raise errorEx;
@@ -220,6 +220,8 @@
                             when errorEx then
                                   RAISE_APPLICATION_ERROR(-20000, 'Correo no encontrado');
                     END;
+                    
+                    
 
 
                    CREATE OR REPLACE PROCEDURE muestraTodoUsuariosEspecNom(nom in varchar2          
@@ -228,11 +230,11 @@
                       errorEx EXCEPTION;
                         conteo int;
                     BEGIN
-                    select count(*) into conteo from usuarios where lower(nombre_usuario) like lower(nom)||'%';
+                    select count(*) into conteo from usuarios where trim(lower(nombre_usuario)) like trim(lower(nom))||'%';
                     if conteo>0 then
                         OPEN todoUsuarioEspecNom FOR
                             SELECT * FROM usuarios
-                            where lower(nombre_usuario) like lower(nom)||'%';
+                            where trim(lower(nombre_usuario)) like trim(lower(nom))||'%';
                             else
                             raise errorEx;
                             end if;
@@ -250,11 +252,11 @@
                       errorEx EXCEPTION;
                         conteo int;
                     BEGIN
-                       select count(*) into conteo from usuarios where lower(apellidos_usuario) like lower(apellido)||'%';
+                       select count(*) into conteo from usuarios where trim(lower(apellidos_usuario)) like trim(lower(apellido))||'%';
                        if conteo>0 then
                         OPEN todoUsuarioEspecApel FOR
                             SELECT * FROM usuarios
-                            where lower(apellidos_usuario) like lower(apellido)||'%';
+                            where trim(lower(apellidos_usuario)) like trim(lower(apellido))||'%';
                             else 
                             raise errorEx;
                             end if;
@@ -319,7 +321,7 @@
                           select count(*) 
                           into conteo 
                           from usuarios 
-                          where lower(correo_usuario)=lower(correo);                       
+                          where lower(correo_usuario)=trim(lower(correo));                       
                         if (conteo=0) then
                             msj:='false';
                         else
@@ -481,11 +483,11 @@
                     errorEx EXCEPTION;
                         conteo int;
                 BEGIN
-                    select count(*) into conteo from rol where upper(nombre_rol) like upper(nomRol)||'%';
+                    select count(*) into conteo from rol where trim(upper(nombre_rol)) like trim(upper(nomRol))||'%';
                     if conteo>0 then
                     OPEN todoRolEspec FOR
                         SELECT * FROM rol
-                        where upper(nombre_rol) like upper(nomRol)||'%';
+                        where trim(upper(nombre_rol)) like trim(upper(nomRol))||'%';
                         else 
                         raise errorEx;
                         end if;
@@ -502,7 +504,7 @@
             conteo int;
             begin
             
-            select count(*) into conteo from rol where lower(nombre_rol)=lower(nomRol);
+            select count(*) into conteo from rol where replace(lower(nombre_rol), ' ','')=replace(lower(nomRol), ' ','');
             
             if (conteo=0) then
             msj:='false';
@@ -775,12 +777,12 @@
                 errorEx EXCEPTION;
                         conteo int;
                 BEGIN
-                select count(*) into conteo from proveedores where lower(nombre_proveedor) like lower(nomProv)||'%';
+                select count(*) into conteo from proveedores where trim(lower(nombre_proveedor)) like trim(lower(nomProv))||'%';
                 
                 if conteo>0 then
                     OPEN todoProvEspec FOR
                         SELECT * FROM proveedores
-                        where lower(nombre_proveedor) like lower(nomProv)||'%';
+                        where trim(lower(nombre_proveedor)) like trim(lower(nomProv))||'%';
                         
                         else 
                         raise errorEx;

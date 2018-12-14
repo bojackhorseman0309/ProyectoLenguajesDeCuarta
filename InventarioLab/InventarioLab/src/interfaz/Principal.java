@@ -95,7 +95,6 @@ public class Principal extends javax.swing.JFrame implements WindowListener {
         jScrollPane2 = new javax.swing.JScrollPane();
         panelAccionesProveedor = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
-        refrescarProveedorBtn = new javax.swing.JButton();
         borrarProveedorBtn = new javax.swing.JButton();
         editarProveedorBtn = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -586,14 +585,6 @@ public class Principal extends javax.swing.JFrame implements WindowListener {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Acciones"));
 
-        refrescarProveedorBtn.setText("Refrescar");
-        refrescarProveedorBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        refrescarProveedorBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refrescarProveedorBtnActionPerformed(evt);
-            }
-        });
-
         borrarProveedorBtn.setText("Borrar");
         borrarProveedorBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         borrarProveedorBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -617,18 +608,15 @@ public class Principal extends javax.swing.JFrame implements WindowListener {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(111, 111, 111)
                 .addComponent(editarProveedorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(96, 96, 96)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 416, Short.MAX_VALUE)
                 .addComponent(borrarProveedorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
-                .addComponent(refrescarProveedorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(145, 145, 145))
+                .addGap(63, 63, 63))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(18, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(refrescarProveedorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(editarProveedorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(borrarProveedorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -2827,10 +2815,6 @@ public class Principal extends javax.swing.JFrame implements WindowListener {
         manProv.borraProvTabla(panelAccionesProveedor);
     }//GEN-LAST:event_borrarProveedorBtnActionPerformed
 
-    private void refrescarProveedorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refrescarProveedorBtnActionPerformed
-
-    }//GEN-LAST:event_refrescarProveedorBtnActionPerformed
-
     private void menuProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuProveedoresMouseClicked
         mi.cambioPanel(cardlayout, "panelProveedores");
     }//GEN-LAST:event_menuProveedoresMouseClicked
@@ -3048,8 +3032,13 @@ public class Principal extends javax.swing.JFrame implements WindowListener {
         correoProv=correoProveedorTxt.getText();
         nomProv=nombreProveedorTxt.getText();
         telProv=telefonoProveedorTxt.getText();
-        manProv.verificaProveedor(nomProv, telProv, correoProv);
+        if (correoProv.isEmpty() || correoProv==null || nomProv.isEmpty() || nomProv==null || telProv.isEmpty() || telProv==null) {
+               JOptionPane.showMessageDialog(null, "Espacios vacios");
+        }else{
+             manProv.verificaProveedor(nomProv, telProv, correoProv);
         limpiarNuevoProveedorBtnActionPerformed(evt);
+        }
+       
     }//GEN-LAST:event_crearNuevoProveedorBtnActionPerformed
 
     private void limpiarNuevoProveedorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarNuevoProveedorBtnActionPerformed
@@ -3359,7 +3348,6 @@ public class Principal extends javax.swing.JFrame implements WindowListener {
     private javax.swing.JPanel panelUsuarios;
     private javax.swing.JComboBox<String> proveedorNuevaEntregaComboBox;
     private javax.swing.JButton refrescaInvBtn;
-    private javax.swing.JButton refrescarProveedorBtn;
     private javax.swing.JButton refrescarTablaEntregaBtn;
     private javax.swing.JButton refrescarTablaPedidoBtn;
     private javax.swing.JButton refrescarTablaRetiroBtn;

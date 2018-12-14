@@ -178,7 +178,10 @@ public class ManejoProveedor {
         model.setRowCount(0);
         if (!nom.equalsIgnoreCase("")) {
             ArrayList<Proveedor> lista = buscarProvEspec(nom);
-            Object[] linea = new Object[4];
+            if (buscarProvEspec(nom)==null || buscarProvEspec(nom).isEmpty() || buscarProvEspec(nom).equals("")) {
+                
+            }else{
+                 Object[] linea = new Object[4];
             for (int i = 0; i < lista.size(); i++) {
             linea[0] = lista.get(i).getIdProv();
             linea[1] = lista.get(i).getNomProv();
@@ -186,6 +189,8 @@ public class ManejoProveedor {
             linea[3] = lista.get(i).getCorreoProv();
                 model.addRow(linea);
             }
+            }
+           
         }else{
            JOptionPane.showMessageDialog(null, "Debe ingresar un nombre para buscar", "Error", 0); 
         }
@@ -257,7 +262,7 @@ public class ManejoProveedor {
             String nombre = model.getValueAt(tabla.getSelectedRow(), 1).toString();
             String tel = model.getValueAt(tabla.getSelectedRow(), 2).toString();
             String correo = model.getValueAt(tabla.getSelectedRow(), 3).toString();
-            verificaProveedorEditado(Integer.parseInt(id), nombre, tel, correo);
+            editarProv(Integer.parseInt(id), nombre, tel, correo);
         } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una fila para editar", "Error", 0);
         }

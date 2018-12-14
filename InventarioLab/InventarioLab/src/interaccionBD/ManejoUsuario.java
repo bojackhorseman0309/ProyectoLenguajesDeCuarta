@@ -238,7 +238,10 @@ public class ManejoUsuario {
         model.setRowCount(0);
         if (!correo.equalsIgnoreCase("")) {
             ArrayList<Usuario> lista = buscaUsuarioEspec(correo);
-            Object[] linea = new Object[5];
+            if (buscaUsuarioEspec(correo) ==null || buscaUsuarioEspec(correo).isEmpty()) {
+                
+            }else{
+                 Object[] linea = new Object[5];
             for (int i = 0; i < lista.size(); i++) {
                 linea[0] = lista.get(i).getIdUsuario();
                 linea[1] = lista.get(i).getNomUsuario();
@@ -247,6 +250,8 @@ public class ManejoUsuario {
                 linea[4] = lista.get(i).getConUsuario();
                 model.addRow(linea);
             }
+            }
+           
         }else{
            JOptionPane.showMessageDialog(null, "Debe ingresar un correo para buscar", "Error", 0); 
         }
@@ -293,7 +298,10 @@ public class ManejoUsuario {
         model.setRowCount(0);
         if (!nom.equalsIgnoreCase("")) {
             ArrayList<Usuario> lista = buscaUsuarioEspecNom(nom);
-            Object[] linea = new Object[5];
+            if (buscaUsuarioEspecNom(nom) == null || buscaUsuarioEspecNom(nom).isEmpty()) {
+                
+            } else{
+                  Object[] linea = new Object[5];
             for (int i = 0; i < lista.size(); i++) {
                 linea[0] = lista.get(i).getIdUsuario();
                 linea[1] = lista.get(i).getNomUsuario();
@@ -302,6 +310,8 @@ public class ManejoUsuario {
                 linea[4] = lista.get(i).getConUsuario();
                 model.addRow(linea);
             }
+            }
+          
         }else{
            JOptionPane.showMessageDialog(null, "Debe ingresar un nombre para buscar", "Error", 0); 
         }
@@ -348,7 +358,10 @@ public class ManejoUsuario {
         model.setRowCount(0);
         if (!apel.equalsIgnoreCase("")) {
             ArrayList<Usuario> lista = buscaUsuarioEspecApel(apel);
-            Object[] linea = new Object[5];
+            if (buscaUsuarioEspecApel(apel)==null || buscaUsuarioEspecApel(apel).isEmpty()) {
+
+            } else{
+                 Object[] linea = new Object[5];
             for (int i = 0; i < lista.size(); i++) {
                 linea[0] = lista.get(i).getIdUsuario();
                 linea[1] = lista.get(i).getNomUsuario();
@@ -357,6 +370,8 @@ public class ManejoUsuario {
                 linea[4] = lista.get(i).getConUsuario();
                 model.addRow(linea);
             }
+            }
+           
         }else{
            JOptionPane.showMessageDialog(null, "Debe ingresar un apellido para buscar", "Error", 0); 
         }
@@ -429,7 +444,7 @@ public class ManejoUsuario {
             String apellido = model.getValueAt(tabla.getSelectedRow(), 2).toString();
             String correo = model.getValueAt(tabla.getSelectedRow(), 3).toString();
             String contra = model.getValueAt(tabla.getSelectedRow(), 4).toString();
-            verificaUsuarioEditado(Integer.parseInt(id), nombre, apellido, correo, contra);
+            editarUsuario(Integer.parseInt(id), nombre, apellido, correo, contra);
         } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una fila para editar", "Error", 0);
         }

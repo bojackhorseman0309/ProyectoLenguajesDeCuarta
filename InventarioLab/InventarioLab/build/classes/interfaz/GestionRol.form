@@ -119,11 +119,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                       <Component id="editarRolBtn" min="-2" pref="118" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                      <EmptySpace pref="227" max="32767" attributes="0"/>
                       <Component id="borrarRolBtn" min="-2" pref="118" max="-2" attributes="0"/>
-                      <EmptySpace pref="54" max="32767" attributes="0"/>
-                      <Component id="refrescarTablaRolBtn" min="-2" pref="118" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -133,7 +131,6 @@
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="editarRolBtn" alignment="3" pref="46" max="32767" attributes="0"/>
-                          <Component id="refrescarTablaRolBtn" alignment="3" pref="46" max="32767" attributes="0"/>
                           <Component id="borrarRolBtn" alignment="3" pref="46" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -152,14 +149,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editarRolBtnActionPerformed"/>
               </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="refrescarTablaRolBtn">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Refrescar"/>
-                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Hand Cursor"/>
-                </Property>
-              </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="borrarRolBtn">
               <Properties>
